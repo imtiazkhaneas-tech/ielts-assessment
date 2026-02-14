@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free IELTS Level Assessment - HelloBSRC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Crimson+Pro:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2540;
+            --accent: #00D4AA;
+            --accent-dark: #00B890;
+            --warning: #FF6B35;
+            --bg-light: #F7FAFC;
+            --text-primary: #1A2332;
+            --text-secondary: #64748B;
+            --border: #E2E8F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #F7FAFC 0%, #EDF2F7 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* Disable right-click */
+        body {
+            -webkit-touch-callout: none;
+        }
+
+        /* Background decoration */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -40%;
+            left: -15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(10, 37, 64, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 10px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(0, 212, 170, 0.3);
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.875rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .question {
+            margin-bottom: 32px;
+        }
+
+        .question-text {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 18px 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .option:hover {
+            border-color: var(--accent);
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 170, 0.15);
+        }
+
+        .option:hover::before {
+            left: 100%;
+        }
+
+        .option.selected {
+            background: white;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 212, 170, 0.1);
+        }
+
+        .option.correct {
+            background: #D1FAE5;
+            border-color: #10B981;
+            animation: correctPulse 0.5s ease-out;
+        }
+
+        .option.incorrect {
+            background: #FEE2E2;
+            border-color: #EF4444;
+            animation: shake 0.5s ease-out;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            margin-top: 24px;
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 170, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result-card {
+            text-align: center;
+            animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .score-circle {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 50px rgba(0, 212, 170, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            opacity: 0.3;
+            filter: blur(20px);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 20px 50px rgba(0, 212, 170, 0.3); }
+            50% { box-shadow: 0 20px 60px rgba(0, 212, 170, 0.5); }
+        }
+
+        .score-text {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .band-level {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .result-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .gaps-section {
+            background: var(--bg-light);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: left;
+        }
+
+        .gaps-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gap-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            animation: slideInLeft 0.5s ease-out backwards;
+        }
+
+        .gap-item:nth-child(1) { animation-delay: 0.1s; }
+        .gap-item:nth-child(2) { animation-delay: 0.2s; }
+        .gap-item:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .gap-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--warning);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .gap-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #0D3A5F 100%);
+            border-radius: 16px;
+            padding: 32px;
+            color: white;
+            margin-top: 32px;
+        }
+
+        .cta-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .cta-text {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 212, 170, 0.1);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Protection watermark (invisible) */
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: transparent;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            .card {
+                padding: 32px 24px;
+            }
+
+            .logo h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                padding: 16px 32px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="watermark">© HelloBSRC Assessment</div>
+    
+    <div class="container">
+        <div class="logo">
+            <h1>HelloBSRC</h1>
+            <p>Free IELTS Level Assessment</p>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome" class="card">
+            <h2>Discover Your IELTS Level in 2 Minutes</h2>
+            <p class="subtitle">Take our quick assessment to find out your current band score and get a personalized study plan to reach your target.</p>
+            
+            <div style="background: var(--bg-light); padding: 24px; border-radius: 12px; margin: 24px 0;">
+                <h3 style="font-size: 1.125rem; margin-bottom: 16px; color: var(--primary);">What you'll get:</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 8px 0; display: flex; align-items: center; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                        <span>Your current IELTS band level</span>
+                    </li>
+                    <li style="padding: 8px 0; display: flex; align-items: center; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                        <span>Personalized gap analysis</span>
+                    </li>
+                    <li style="padding: 8px 0; display: flex; align-items: center; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                        <span>Recommended study plan</span>
+                    </li>
+                    <li style="padding: 8px 0; display: flex; align-items: center; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                        <span>Free counseling session</span>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="btn" onclick="startAssessment()">
+                <span style="position: relative; z-index: 1;">Start Assessment</span>
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz" class="card hidden">
+            <div class="progress-text">
+                <span id="current-question">1</span> of <span id="total-questions">7</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+
+            <div id="question-container"></div>
+
+            <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>
+                <span style="position: relative; z-index: 1;">Next Question</span>
+            </button>
+        </div>
+
+        <!-- Contact Form Screen (Before Results) -->
+        <div id="contact-form" class="card hidden">
+            <h2>Almost There! 🎯</h2>
+            <p class="subtitle">Enter your details to get your personalized IELTS assessment results instantly.</p>
+            
+            <form id="info-form" onsubmit="submitInfo(event)">
+                <div class="form-group">
+                    <input type="text" id="user-name" class="form-input" placeholder="Your Name" required style="background: var(--bg-light); color: var(--text-primary); border-color: var(--border);">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="user-email" class="form-input" placeholder="Email Address" required style="background: var(--bg-light); color: var(--text-primary); border-color: var(--border);">
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="user-phone" class="form-input" placeholder="Phone Number (with country code)" required style="background: var(--bg-light); color: var(--text-primary); border-color: var(--border);">
+                </div>
+                <button type="submit" class="btn">
+                    <span style="position: relative; z-index: 1;">Get My Results</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Screen -->
+        <div id="loading" class="card hidden">
+            <div style="text-align: center; padding: 60px 20px;">
+                <div class="score-circle" style="animation: spin 1.5s linear infinite;">
+                    <div style="font-size: 3rem;">📊</div>
+                </div>
+                <h2 style="margin-top: 32px;">Analyzing Your Results...</h2>
+                <p class="subtitle">Calculating your band score and personalized recommendations</p>
+                <div style="max-width: 300px; margin: 32px auto;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="loading-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results" class="card hidden">
+            <div class="result-card">
+                <div class="score-circle">
+                    <div class="score-text" id="band-score"></div>
+                </div>
+                
+                <h2 id="result-title"></h2>
+                <p class="result-description" id="result-description"></p>
+
+                <div class="gaps-section">
+                    <div class="gaps-title">
+                        <span>📊</span>
+                        <span>Your Learning Gaps</span>
+                    </div>
+                    <div id="gaps-list"></div>
+                </div>
+
+                <div class="cta-section">
+                    <div class="cta-title" id="cta-title">Ready to Start Your Journey?</div>
+                    <div class="cta-text" id="cta-text">Based on your level, we recommend:</div>
+                    
+                    <div style="margin: 24px 0;">
+                        <a id="course-link" href="#" class="btn btn-secondary" style="display: inline-block; text-decoration: none;">
+                            <span style="position: relative; z-index: 1;" id="course-button-text">View Recommended Course</span>
+                        </a>
+                    </div>
+
+                    <p style="font-size: 0.875rem; opacity: 0.8; margin-top: 16px;">
+                        Have questions? <a href="https://wa.me/01617302010" style="color: white; text-decoration: underline;">Message us on WhatsApp</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Disable common keyboard shortcuts for saving/copying
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'c' || e.key === 'a')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable text selection on double-click
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        const questions = [
+            {
+                question: "Choose the correct sentence:",
+                options: [
+                    { text: "I have went to the store yesterday", correct: false },
+                    { text: "I have gone to the store yesterday", correct: false },
+                    { text: "I went to the store yesterday", correct: true },
+                    { text: "I have go to the store yesterday", correct: false }
+                ],
+                category: "grammar"
+            },
+            {
+                question: "What does 'elaborate' mean?",
+                options: [
+                    { text: "Make something simpler", correct: false },
+                    { text: "Explain in more detail", correct: true },
+                    { text: "Remove quickly", correct: false },
+                    { text: "Change completely", correct: false }
+                ],
+                category: "vocabulary"
+            },
+            {
+                question: "Complete: If I _____ more time, I would travel the world.",
+                options: [
+                    { text: "have", correct: false },
+                    { text: "had", correct: true },
+                    { text: "will have", correct: false },
+                    { text: "would have", correct: false }
+                ],
+                category: "grammar"
+            },
+            {
+                question: "Which word is closest in meaning to 'abundant'?",
+                options: [
+                    { text: "Scarce", correct: false },
+                    { text: "Plentiful", correct: true },
+                    { text: "Rare", correct: false },
+                    { text: "Limited", correct: false }
+                ],
+                category: "vocabulary"
+            },
+            {
+                question: "Identify the correct passive voice:",
+                options: [
+                    { text: "The book was wrote by the author", correct: false },
+                    { text: "The book written by the author", correct: false },
+                    { text: "The book was written by the author", correct: true },
+                    { text: "The book is wrote by the author", correct: false }
+                ],
+                category: "grammar"
+            },
+            {
+                question: "Choose the appropriate word: The evidence was _____ to prove his innocence.",
+                options: [
+                    { text: "sufficient", correct: true },
+                    { text: "deficient", correct: false },
+                    { text: "proficient", correct: false },
+                    { text: "efficient", correct: false }
+                ],
+                category: "vocabulary"
+            },
+            {
+                question: "Which sentence shows correct subject-verb agreement?",
+                options: [
+                    { text: "The team are playing well", correct: false },
+                    { text: "The team is playing well", correct: true },
+                    { text: "The team were playing well", correct: false },
+                    { text: "The team be playing well", correct: false }
+                ],
+                category: "grammar"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let grammarScore = 0;
+        let vocabularyScore = 0;
+        let userAnswers = []; // Track all answers for data collection
+        let userData = {}; // Store user info
+
+        function startAssessment() {
+            document.getElementById('welcome').classList.add('hidden');
+            document.getElementById('quiz').classList.remove('hidden');
+            document.getElementById('total-questions').textContent = questions.length;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+            
+            container.innerHTML = `
+                <div class="question">
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectAnswer(${index}, ${option.correct})">
+                                ${option.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            updateProgress();
+            selectedAnswer = null;
+            document.getElementById('next-btn').disabled = true;
+        }
+
+        function selectAnswer(index, isCorrect) {
+            if (selectedAnswer !== null) return;
+
+            selectedAnswer = index;
+            const options = document.querySelectorAll('.option');
+            options[index].classList.add('selected');
+            
+            // Record the answer for data collection
+            userAnswers.push({
+                questionIndex: currentQuestionIndex,
+                question: questions[currentQuestionIndex].question,
+                selectedAnswer: questions[currentQuestionIndex].options[index].text,
+                isCorrect: isCorrect,
+                category: questions[currentQuestionIndex].category
+            });
+            
+            if (isCorrect) {
+                options[index].classList.add('correct');
+                score++;
+                if (questions[currentQuestionIndex].category === 'grammar') {
+                    grammarScore++;
+                } else {
+                    vocabularyScore++;
+                }
+            } else {
+                options[index].classList.add('incorrect');
+                // Show correct answer
+                questions[currentQuestionIndex].options.forEach((opt, i) => {
+                    if (opt.correct) {
+                        options[i].classList.add('correct');
+                    }
+                });
+            }
+
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showContactForm();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function showContactForm() {
+            document.getElementById('quiz').classList.add('hidden');
+            document.getElementById('contact-form').classList.remove('hidden');
+        }
+
+        function submitInfo(event) {
+            event.preventDefault();
+            
+            // Collect user information
+            userData = {
+                name: document.getElementById('user-name').value,
+                email: document.getElementById('user-email').value,
+                phone: document.getElementById('user-phone').value,
+                score: score,
+                totalQuestions: questions.length,
+                percentage: (score / questions.length) * 100,
+                grammarScore: grammarScore,
+                vocabularyScore: vocabularyScore,
+                answers: userAnswers,
+                timestamp: new Date().toISOString(),
+                dateReadable: new Date().toLocaleString()
+            };
+
+            // Send to Make.com webhook BEFORE showing results
+            sendToWebhook(userData);
+
+            // Show loading screen
+            document.getElementById('contact-form').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            // Simulate loading with progress animation
+            let progress = 0;
+            const loadingInterval = setInterval(() => {
+                progress += 5;
+                document.getElementById('loading-progress').style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(loadingInterval);
+                    setTimeout(() => {
+                        showResults();
+                    }, 500);
+                }
+            }, 80); // Takes ~2 seconds total
+        }
+
+        function sendToWebhook(data) {
+            // Replace with your Make.com webhook URL
+            const webhookURL = 'https://hook.us2.make.com/ngkqfbqu107dmmn9qfsjmcb8gbi6e4pf';
+            
+            // Uncomment this when you have webhook URL:
+            // Webhook is now active:
+fetch(webhookURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(result => console.log('Data sent successfully:', result))
+.catch(error => console.error('Error sending data:', error));
+```
+            
+            // For now, just log to console for testing
+            console.log('Assessment Data:', data);
+        }
+
+        function showResults() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+
+            const percentage = userData.percentage;
+            let bandScore, title, description, gaps, courseURL, courseTitle;
+
+            // Course URLs - Replace these with actual HelloBSRC course pages
+            const courses = {
+                foundation: 'https://hellobarc.com/courses/combo/basic-english-course',
+                intermediate: 'https://hellobarc.com/courses/combo/ielts-main-course',
+                advanced: 'https://hellobarc.com/courses/combo/ielts-advanced-course',
+                expert: 'https://hellobarc.com/courses/combo/ielts-premium'
+            };
+
+            if (percentage >= 85) {
+                bandScore = "7.5+";
+                title = "Excellent! You're at Band 7.5+";
+                description = "You have a strong command of English. With focused practice on specific exam techniques, you can achieve your target score quickly.";
+                gaps = [
+                    "Fine-tune exam strategies for speaking and writing",
+                    "Practice time management under exam conditions",
+                    "Perfect your academic writing style"
+                ];
+                courseURL = courses.expert;
+                courseTitle = "Expert IELTS Techniques Program";
+            } else if (percentage >= 70) {
+                bandScore = "6.5-7.0";
+                title = "Great! You're at Band 6.5-7.0";
+                description = "You have good language skills with room for improvement. You're close to your target and need focused practice in specific areas.";
+                gaps = [
+                    grammarScore < 3 ? "Strengthen complex grammar structures" : "Expand academic vocabulary range",
+                    vocabularyScore < 2 ? "Build advanced vocabulary repertoire" : "Improve sentence variety in writing",
+                    "Enhance fluency and coherence in speaking"
+                ];
+                courseURL = courses.advanced;
+                courseTitle = "Advanced IELTS Preparation";
+            } else if (percentage >= 50) {
+                bandScore = "5.5-6.0";
+                title = "Good Start! You're at Band 5.5-6.0";
+                description = "You have foundational English skills. With structured learning focusing on your weak areas, you can reach Band 7.0 in 2-3 months.";
+                gaps = [
+                    "Grammar fundamentals need strengthening",
+                    "Vocabulary building is essential",
+                    "Practice forming complex sentences"
+                ];
+                courseURL = courses.intermediate;
+                courseTitle = "Intermediate to Advanced IELTS";
+            } else {
+                bandScore = "4.5-5.0";
+                title = "Foundation Level: Band 4.5-5.0";
+                description = "You're at the beginning of your IELTS journey. Our comprehensive foundation program will help you build the core skills needed to reach your target.";
+                gaps = [
+                    "Basic grammar structures require focus",
+                    "Essential vocabulary development needed",
+                    "Sentence construction practice required"
+                ];
+                courseURL = courses.foundation;
+                courseTitle = "Complete IELTS Foundation Program";
+            }
+
+            // Update band score in userData for webhook
+            userData.bandScore = bandScore;
+            userData.recommendedCourse = courseTitle;
+
+            document.getElementById('band-score').textContent = bandScore;
+            document.getElementById('result-title').textContent = title;
+            document.getElementById('result-description').textContent = description;
+
+            const gapsList = document.getElementById('gaps-list');
+            gapsList.innerHTML = gaps.map((gap, index) => `
+                <div class="gap-item">
+                    <div class="gap-icon">${index + 1}</div>
+                    <div class="gap-text">${gap}</div>
+                </div>
+            `).join('');
+
+            // Set personalized CTA based on level
+            document.getElementById('cta-title').textContent = `Perfect! We Recommend: ${courseTitle}`;
+            document.getElementById('cta-text').textContent = `This course is specifically designed for students at your level (Band ${bandScore}) to help you reach your target score efficiently.`;
+            document.getElementById('course-link').href = courseURL;
+            document.getElementById('course-button-text').textContent = `Enroll in ${courseTitle}`;
+        }
+
+        // Additional protection: Disable drag and drop
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
