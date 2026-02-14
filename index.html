@@ -904,19 +904,17 @@
             // Replace with your Make.com webhook URL
             const webhookURL = 'https://hook.us2.make.com/ngkqfbqu107dmmn9qfsjmcb8gbi6e4pf';
             
-            // Uncomment this when you have webhook URL:
-            // Webhook is now active:
-fetch(webhookURL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-})
-.then(response => response.json())
-.then(result => console.log('Data sent successfully:', result))
-.catch(error => console.error('Error sending data:', error));
-```
+            // Send data to Make.com webhook
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => console.log('Data sent successfully:', result))
+            .catch(error => console.error('Error sending data:', error));
             
-            // For now, just log to console for testing
+            // Also log to console for testing
             console.log('Assessment Data:', data);
         }
 
