@@ -863,16 +863,37 @@
         function submitInfo(event) {
             event.preventDefault();
             
-            // Collect user information
+            // Calculate percentage
+            const percentage = (score / questions.length) * 100;
+            
+            // Determine band score and course BEFORE sending
+            let bandScore, courseTitle;
+            if (percentage >= 85) {
+                bandScore = "7.5+";
+                courseTitle = "Expert IELTS Techniques Program";
+            } else if (percentage >= 70) {
+                bandScore = "6.5-7.0";
+                courseTitle = "Advanced IELTS Preparation";
+            } else if (percentage >= 50) {
+                bandScore = "5.5-6.0";
+                courseTitle = "Intermediate to Advanced IELTS";
+            } else {
+                bandScore = "4.5-5.0";
+                courseTitle = "Complete IELTS Foundation Program";
+            }
+            
+            // Collect user information WITH band score and course
             userData = {
                 name: document.getElementById('user-name').value,
                 email: document.getElementById('user-email').value,
                 phone: document.getElementById('user-phone').value,
                 score: score,
                 totalQuestions: questions.length,
-                percentage: (score / questions.length) * 100,
+                percentage: percentage,
                 grammarScore: grammarScore,
                 vocabularyScore: vocabularyScore,
+                bandScore: bandScore,
+                recommendedCourse: courseTitle,
                 answers: userAnswers,
                 timestamp: new Date().toISOString(),
                 dateReadable: new Date().toLocaleString()
@@ -979,11 +1000,7 @@
                 courseTitle = "Complete IELTS Foundation Program";
             }
 
-            // Update band score in userData for webhook
-            userData.bandScore = bandScore;
-            userData.recommendedCourse = courseTitle;
-
-            document.getElementById('band-score').textContent = bandScore;
+            document.getElementById('band-score').textContent = userData.bandScore;
             document.getElementById('result-title').textContent = title;
             document.getElementById('result-description').textContent = description;
 
